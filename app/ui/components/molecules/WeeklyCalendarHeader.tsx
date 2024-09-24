@@ -1,8 +1,18 @@
+import styles from './styles.module.css';
 
-export function WeeklyCalendarHeader() {
-  const day = 9;
+interface WeeklyCalendarHeaderProps {
+  firstDayOfWeek: Date;
+  className?: string;
+}
+
+export function WeeklyCalendarHeader({
+  firstDayOfWeek = new Date(),
+  className }: WeeklyCalendarHeaderProps) {
+
+  const day = firstDayOfWeek.getDate();
+
   return (
-    <div>
+    <div className={styles.weeklyCalendarHeader}>
       <div>
         日
         <p>{day - 1}</p>

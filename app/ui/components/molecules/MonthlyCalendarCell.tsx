@@ -1,10 +1,20 @@
+import styles from './styles.module.css';
 import { EventButton } from '../atoms/EventButton';
 
-export function MonthlyCalendarCell (){
-  const day = 9;
+interface MonthlyCalendarCellProps {
+  date: Date;
+  className?: string;
+}
+
+export function MonthlyCalendarCell({
+  date = new Date(),
+  className,
+  ...props
+}: MonthlyCalendarCellProps) {
+
   return (
-    <div>
-      <p>{day}</p>
+    <div className={styles.monthlyCalendarCell} {...props}>
+      <p>{date.getDate()}</p>
       <EventButton />
       <EventButton />
     </div>

@@ -9,7 +9,7 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  args: { onClick: () => {console.log("hello")} },
+  // args: { onClick: () => {console.log("hello")} },
 } satisfies Meta<typeof Pagination>;
 
 export default meta;

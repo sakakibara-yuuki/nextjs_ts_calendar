@@ -1,10 +1,20 @@
+import styles from './styles.module.css';
 import { EventButton } from '../atoms/EventButton';
 
-export function WeeklyCalendarCell (){
-  const day = 9;
+interface WeeklyCalendarCellProps {
+  day: Date;
+  className?: string;
+}
+
+export function WeeklyCalendarCell({
+  day = new Date(),
+  className,
+  ...props
+}: WeeklyCalendarCellProps) {
   return (
-    <div>
-      {/*<p>{day}</p> */}
+    <div
+      className={styles.weeklyCalendarCell}
+      {...props}>
       <EventButton />
       <EventButton />
     </div>

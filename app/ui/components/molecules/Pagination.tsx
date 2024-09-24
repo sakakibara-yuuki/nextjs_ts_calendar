@@ -1,17 +1,17 @@
+import styles from './styles.module.css';
+import { format } from 'date-fns';
 import { PaginationButton } from '../atoms/PaginationButton';
-//
-// interface PaginationProps {
-//   current
-// }
-//
 
-export function Pagination() {
-  const date = "2021-10-10";
+interface PaginationProps {
+  date: Date;
+}
+
+export function Pagination({ date = new Date() }: PaginationProps) {
   return (
-    <div>
-    <PaginationButton />
-    <PaginationButton />
-    <p>{date}</p>
+    <div className={styles.pagination}>
+      <PaginationButton leftAndRight='left'/>
+      <PaginationButton leftAndRight='right'/>
+      <p>{format(date, 'yyyy/MM/dd')}</p>
     </div>
   );
 }
