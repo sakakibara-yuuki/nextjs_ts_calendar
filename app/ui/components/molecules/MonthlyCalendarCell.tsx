@@ -1,5 +1,7 @@
-import styles from './styles.module.css';
-import { EventButton } from '../atoms/EventButton';
+"use client";
+
+import styles from "./molecules.module.css";
+import { EventButton } from "../atoms/EventButton";
 
 interface MonthlyCalendarCellProps {
   date: Date;
@@ -11,7 +13,6 @@ export function MonthlyCalendarCell({
   className,
   ...props
 }: MonthlyCalendarCellProps) {
-
   return (
     <div className={styles.monthlyCalendarCell} {...props}>
       <p>{date.getDate()}</p>
@@ -19,4 +20,4 @@ export function MonthlyCalendarCell({
       <EventButton />
     </div>
   );
-};
+}

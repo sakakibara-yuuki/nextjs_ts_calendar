@@ -1,5 +1,5 @@
-import styles from './styles.module.css';
-import { EventButton } from '../atoms/EventButton';
+import styles from "./molecules.module.css";
+import { EventButton } from "../atoms/EventButton";
 
 interface WeeklyCalendarCellProps {
   day: Date;
@@ -12,11 +12,9 @@ export function WeeklyCalendarCell({
   ...props
 }: WeeklyCalendarCellProps) {
   return (
-    <div
-      className={styles.weeklyCalendarCell}
-      {...props}>
+    <div className={styles.weeklyCalendarCell} {...props}>
       <EventButton />
       <EventButton />
     </div>
   );
-};
+}

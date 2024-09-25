@@ -1,16 +1,14 @@
 export interface CalendarModeSelectorProps {
   primary?: boolean;
   backgroundColor?: string;
-  size?: 'small' | 'medium' | 'large';
-  label: string;
+  size?: "small" | "medium" | "large";
   onClick?: () => void;
 }
 
 export function CalendarModeSelector({
   primary = false,
-  size = 'medium',
+  size = "medium",
   backgroundColor,
-  label,
   ...props
 }: CalendarModeSelectorProps) {
   return (

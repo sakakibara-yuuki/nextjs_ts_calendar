@@ -1,23 +1,21 @@
-import { Button } from './Button';
-import type { ButtonProps } from './Button';
+"use client";
 
-export interface CreateEventButtonProps extends ButtonProps {
-}
+import { Button } from "./Button";
+import type { ButtonProps } from "./Button";
+
+interface CreateEventButtonProps extends Omit<ButtonProps, "label"> {}
 
 export function CreateEventButton({
   primary = false,
-  size = 'medium',
-  backgroundColor,
-  label = '新規制作',
   ...props
 }: CreateEventButtonProps) {
   return (
     <Button
       primary={primary}
-      size="medium"
-      backgroundColor="blue"
-      onClick={() => {console.log("hello")}}
-      label='新規制作'
+      onClick={() => {
+        console.log("hello");
+      }}
+      label="新規作成"
     />
   );
 }

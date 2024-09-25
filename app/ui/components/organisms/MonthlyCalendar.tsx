@@ -1,12 +1,23 @@
-import styles from './styles.module.css';
-import { MonthlyCalendarCell } from '../molecules/MonthlyCalendarCell';
-import { format, eachDayOfInterval, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays } from 'date-fns';
+import styles from "./organisms.module.css";
+import { MonthlyCalendarCell } from "../molecules/MonthlyCalendarCell";
+import {
+  format,
+  eachDayOfInterval,
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  addDays,
+} from "date-fns";
 
 interface MonthlyCalendarProps {
-  month?: number;
+  className?: string[];
 }
 
-export function MonthlyCalendar({}: MonthlyCalendarProps) {
+export function MonthlyCalendar({ className }: MonthlyCalendarProps) {
+  if (className === undefined) {
+    className = [];
+  }
 
   // みたい月が引数?
   const today: Date = new Date(2021, 9 - 1, 1);
@@ -29,32 +40,27 @@ export function MonthlyCalendar({}: MonthlyCalendarProps) {
   });
 
   return (
-    <div className={styles.monthlyContainer}>
-      {
-        firstDayOfMonth.getDay() === 0 ? [] :
-        beforeDaysOfMonth.map((date) => {
-          return (
-            <MonthlyCalendarCell key={format(date, 'yyyy/MM/dd')}
-            date={date} />
-          );
-        })
-      }
-      {
-        monthDays.map((date) => {
-          return (
-            <MonthlyCalendarCell key={format(date, 'yyyy/MM/dd')}
-            date={date} />
-          );
-        })
-      }
-      {
-        afterDaysOfMonth.map((date) => {
-          return (
-            <MonthlyCalendarCell key={format(date, 'yyyy/MM/dd')}
-            date={date} />
-          );
-        })
-      }
+    <div className={[...className, styles.monthlyContainer].join(" ")}>
+      {firstDayOfMonth.getDay() === 0
+        ? []
+        : beforeDaysOfMonth.map((date) => {
+            return (
+              <MonthlyCalendarCell
+                key={format(date, "yyyy/MM/dd")}
+                date={date}
+              />
+            );
+          })}
+      {monthDays.map((date) => {
+        return (
+          <MonthlyCalendarCell key={format(date, "yyyy/MM/dd")} date={date} />
+        );
+      })}
+      {afterDaysOfMonth.map((date) => {
+        return (
+          <MonthlyCalendarCell key={format(date, "yyyy/MM/dd")} date={date} />
+        );
+      })}
     </div>
   );
 }

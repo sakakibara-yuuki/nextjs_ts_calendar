@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // import './button.css';
 
@@ -8,7 +8,7 @@ export interface ButtonProps {
   /** What background color to use */
   backgroundColor?: string;
   /** How large should the button be? */
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   /** Button contents */
   label: string;
   /** Optional click handler */
@@ -18,7 +18,7 @@ export interface ButtonProps {
 /** Primary UI component for user interaction */
 export function Button({
   primary = false,
-  size = 'medium',
+  // size = 'medium',
   backgroundColor,
   label,
   ...props
@@ -33,9 +33,4 @@ export function Button({
       {label}
     </button>
   );
-};
-      // <style jsx>{`
-      //   button {
-      //     background-color: ${backgroundColor};
-      //   }
-      // `}</style>
+}
