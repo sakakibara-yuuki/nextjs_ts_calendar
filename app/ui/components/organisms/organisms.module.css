@@ -38,6 +38,8 @@
   grid-template-rows: auto 1fr;
   align-items: center;
   justify-items: center;
+  overflow-y: auto;
+  height: 100vh;
 }
 
 .weeklyCalendarHeader {
