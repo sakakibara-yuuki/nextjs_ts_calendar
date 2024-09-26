@@ -3,10 +3,13 @@ import { format, eachDayOfInterval, startOfWeek, endOfWeek } from "date-fns";
 import { WeeklyCalendarHeader } from "../molecules/WeeklyCalendarHeader";
 import { WeeklyCalendarCell } from "../molecules/WeeklyCalendarCell";
 
-export function WeeklyCalendar() {
-  const today: Date = new Date();
-  const firstDayOfWeek: Date = startOfWeek(today);
-  const lastDayOfWeek: Date = endOfWeek(today);
+interface WeeklyCalendarProps {
+  date?: Date;
+}
+
+export function WeeklyCalendar({ date = new Date() }: WeeklyCalendarProps) {
+  const firstDayOfWeek: Date = startOfWeek(date);
+  const lastDayOfWeek: Date = endOfWeek(date);
   const weeklyDays = eachDayOfInterval({
     start: firstDayOfWeek,
     end: lastDayOfWeek,
