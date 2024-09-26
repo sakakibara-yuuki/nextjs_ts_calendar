@@ -10,6 +10,7 @@ export function useParamsToDate() {
   };
 
   const params = useParams<Params>();
+  const calendarView = params.calendarView;
 
   const date = new Date(
     parseInt(params.year),
@@ -17,5 +18,5 @@ export function useParamsToDate() {
     parseInt(params.day),
   );
 
-  return date;
+  return { calendarView, date };
 }

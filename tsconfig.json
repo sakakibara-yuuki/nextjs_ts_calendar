@@ -21,6 +21,7 @@
     "paths": {
       "@/*": ["./*"],
       "@hooks/*": ["hooks/*"],
+      "@types/*": ["types/*"],
       "@components/*": ["app/ui/components/*"]
     }
   },

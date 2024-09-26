@@ -2,19 +2,7 @@ import lightStyle from "./ui/css/light.module.css";
 import darkStyle from "./ui/css/dark.module.css";
 
 import "./ui/globals.css";
-import styles from "./page.module.css";
-
-import { Header } from "@components/organisms/Header";
-import { Sidebar } from "@components/organisms/Sidebar";
-
-export interface ParamsProps {
-  params: {
-    calendarView: string;
-    year: number;
-    month: number;
-    day: number;
-  };
-}
+import type { ParamsProps } from "types/params";
 
 export async function generateMetadata({ params }: ParamsProps) {
   const today = new Date();
@@ -40,13 +28,7 @@ export default function RootLayout({
 
   return (
     <html lang="ja">
-      <body className={theme.dark}>
-        <div className={styles.container}>
-          <Header className={[styles.header]} />
-          <Sidebar className={[styles.sidebar]} />
-          {children}
-        </div>
-      </body>
+      <body className={theme.dark}>{children}</body>
     </html>
   );
 }

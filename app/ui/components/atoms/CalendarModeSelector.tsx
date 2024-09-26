@@ -1,22 +1,16 @@
 export interface CalendarModeSelectorProps {
-  date: Date;
-  primary?: boolean;
-  backgroundColor?: string;
-  size?: "small" | "medium" | "large";
-  onClick?: () => void;
+  viewMode: string;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export function CalendarModeSelector({
-  date,
-  primary = false,
-  size = "medium",
-  backgroundColor,
-  ...props
+  viewMode,
+  onChange = () => {},
 }: CalendarModeSelectorProps) {
   return (
-    <select {...props}>
-      <option value="week">週</option>
+    <select value={viewMode} onChange={(e) => onChange(e)}>
       <option value="month">月</option>
+      <option value="week">週</option>
     </select>
   );
 }
