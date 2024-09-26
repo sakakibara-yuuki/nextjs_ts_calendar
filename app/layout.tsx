@@ -4,8 +4,8 @@ import darkStyle from "./ui/css/dark.module.css";
 import "./ui/globals.css";
 import styles from "./page.module.css";
 
-import { Header } from "./ui/components/organisms/Header";
-import { Sidebar } from "./ui/components/organisms/Sidebar";
+import { Header } from "@components/organisms/Header";
+import { Sidebar } from "@components/organisms/Sidebar";
 
 export interface ParamsProps {
   params: {
@@ -29,7 +29,6 @@ export async function generateMetadata({ params }: ParamsProps) {
 
 export default function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
   params: ParamsProps;
@@ -41,7 +40,7 @@ export default function RootLayout({
 
   return (
     <html lang="ja">
-      <body className={theme.light}>
+      <body className={theme.dark}>
         <div className={styles.container}>
           <Header className={[styles.header]} />
           <Sidebar className={[styles.sidebar]} />

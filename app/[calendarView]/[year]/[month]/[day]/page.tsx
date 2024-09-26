@@ -1,13 +1,12 @@
 import type { ParamsProps } from "../../../../layout";
+import { MonthlyCalendar } from "@components/organisms/MonthlyCalendar";
 
 export default function Page({ params }: ParamsProps) {
+  const date = new Date(params.year, params.month - 1, params.day);
+
   return (
     <div>
-      <h1>Calendar</h1>
-      <p>Calendar view: {params.calendarView}</p>
-      <p>Year: {params.year}</p>
-      <p>Month: {params.month}</p>
-      <p>Day: {params.day}</p>
+      <MonthlyCalendar date={date} />
     </div>
   );
 }

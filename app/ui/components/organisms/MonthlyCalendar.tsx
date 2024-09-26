@@ -1,4 +1,7 @@
+"use client";
 import styles from "./organisms.module.css";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { MonthlyCalendarCell } from "../molecules/MonthlyCalendarCell";
 import {
   format,
@@ -8,21 +11,21 @@ import {
   startOfWeek,
   endOfWeek,
   addDays,
+  addMonths,
 } from "date-fns";
 
 interface MonthlyCalendarProps {
+  date: Date;
   className?: string[];
 }
 
-export function MonthlyCalendar({ className }: MonthlyCalendarProps) {
+export function MonthlyCalendar({ date, className }: MonthlyCalendarProps) {
   if (className === undefined) {
     className = [];
   }
 
-  // みたい月が引数?
-  const today: Date = new Date(2021, 9 - 1, 1);
-  const firstDayOfMonth: Date = startOfMonth(today);
-  const lastDayOfMonth: Date = endOfMonth(today);
+  const firstDayOfMonth: Date = startOfMonth(date);
+  const lastDayOfMonth: Date = endOfMonth(date);
 
   const monthDays = eachDayOfInterval({
     start: firstDayOfMonth,
@@ -39,8 +42,25 @@ export function MonthlyCalendar({ className }: MonthlyCalendarProps) {
     end: endOfWeek(lastDayOfMonth),
   });
 
+  const router = useRouter();
+
+  const [viewDate, setViewDate] = useState(date);
+
+  function scrollHandler(e: React.WheelEvent<HTMLDivElement>) {
+    setViewDate(addMonths(viewDate, e.deltaY > 0 ? 1 : -1));
+    const year = viewDate.getFullYear();
+    const month = viewDate.getMonth();
+    const day = viewDate.getDate();
+    router.replace(`/month/${year}/${month + 1}/${day}`);
+    router.prefetch(`/month/${year}/${month}/${day}`);
+    router.prefetch(`/month/${year}/${month + 2}/${day}`);
+  }
+
   return (
-    <div className={[...className, styles.monthlyContainer].join(" ")}>
+    <div
+      className={[...className, styles.monthlyContainer].join(" ")}
+      onWheel={(e) => scrollHandler(e)}
+    >
       {firstDayOfMonth.getDay() === 0
         ? []
         : beforeDaysOfMonth.map((date) => {
@@ -56,11 +76,16 @@ export function MonthlyCalendar({ className }: MonthlyCalendarProps) {
           <MonthlyCalendarCell key={format(date, "yyyy/MM/dd")} date={date} />
         );
       })}
-      {afterDaysOfMonth.map((date) => {
-        return (
-          <MonthlyCalendarCell key={format(date, "yyyy/MM/dd")} date={date} />
-        );
-      })}
+      {lastDayOfMonth.getDay() === 6
+        ? []
+        : afterDaysOfMonth.map((date) => {
+            return (
+              <MonthlyCalendarCell
+                key={format(date, "yyyy/MM/dd")}
+                date={date}
+              />
+            );
+          })}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 export interface CalendarModeSelectorProps {
+  date: Date;
   primary?: boolean;
   backgroundColor?: string;
   size?: "small" | "medium" | "large";
@@ -6,6 +7,7 @@ export interface CalendarModeSelectorProps {
 }
 
 export function CalendarModeSelector({
+  date,
   primary = false,
   size = "medium",
   backgroundColor,
