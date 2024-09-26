@@ -14,8 +14,8 @@ export function Header({ className }: HeaderProps) {
     className = [];
   }
 
-  const { calendarView, date } = useParamsToDate();
-  const [viewMode, setViewMode] = useState(calendarView);
+  const date = useParamsToDate();
+  const [viewMode, setViewMode] = useState("month");
 
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -23,13 +23,13 @@ export function Header({ className }: HeaderProps) {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace(`/${viewMode}/${year}/${month}/${day}`);
+    router.replace(`/calendar/${viewMode}/${year}/${month}/${day}`);
   }, [viewMode]);
 
   return (
     <header className={[...className, styles.headerContainer].join(" ")}>
       <div className={styles.pagination}>
-        <Pagination date={date} />
+        <Pagination viewMode={viewMode} date={date} />
       </div>
       <div className={styles.selector}>
         <CalendarModeSelector

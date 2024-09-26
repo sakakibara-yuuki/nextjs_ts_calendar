@@ -3,20 +3,24 @@ import { useParams } from "next/navigation";
 export function useParamsToDate() {
   // custom hook
   type Params = {
-    calendarView: string;
-    year: string;
-    month: string;
-    day: string;
+    date: string[];
   };
 
   const params = useParams<Params>();
-  const calendarView = params.calendarView;
+  const dates = params.date.map((item) => parseInt(item));
+  let date: Date;
 
-  const date = new Date(
-    parseInt(params.year),
-    parseInt(params.month) - 1,
-    parseInt(params.day),
-  );
+  if (dates[0] == undefined) {
+    date = new Date();
+  }
+  if (dates[1] == undefined) {
+    date = new Date(dates[0]);
+  }
+  if (dates[2] == undefined) {
+    date = new Date(dates[0], dates[1] - 1);
+  }
 
-  return { calendarView, date };
+  date = new Date(dates[0], dates[1] - 1, dates[2]);
+
+  return date;
 }
