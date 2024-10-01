@@ -7,9 +7,5 @@ export default function Page() {
   const date = useParamsToDate();
   const [viewDate] = useState(date);
 
-  return (
-    <div>
-      <WeeklyCalendar date={viewDate} />
-    </div>
-  );
+  return <WeeklyCalendar date={viewDate} />;
 }
