@@ -1,23 +1,36 @@
-"use client";
-
 import styles from "./molecules.module.css";
-import { EventButton } from "../atoms/EventButton";
+import { useState } from "react";
+import { Portal } from "@components/molecules/Portal";
 
 interface MonthlyCalendarCellProps {
   date: Date;
-  className?: string;
+  className?: string[] | string;
 }
 
 export function MonthlyCalendarCell({
   date = new Date(),
-  className,
-  ...props
+  className = [],
 }: MonthlyCalendarCellProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className={styles.monthlyCalendarCell} {...props}>
+    <div
+      className={
+        Array.isArray(className)
+          ? [...className, styles.monthlyCalendarCell].join(" ")
+          : `${className} ${styles.monthlyCalendarCell}`
+      }
+      onClick={() => setIsOpen(true)}
+    >
       <p>{date.getDate()}</p>
-      <EventButton />
-      <EventButton />
+      {isOpen && (
+        <Portal>
+          <div>
+            Test Portal Content
+            <button>Close</button>
+          </div>
+        </Portal>
+      )}
     </div>
   );
 }
