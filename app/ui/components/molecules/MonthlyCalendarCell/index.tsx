@@ -1,6 +1,7 @@
 import styles from "../molecules.module.css";
 import { useState } from "react";
 import { Portal } from "@components/molecules/Portal";
+import { EventAddModal } from "@components/organisms/EventAddModal";
 
 interface MonthlyCalendarCellProps {
   date: Date;
@@ -11,7 +12,16 @@ export function MonthlyCalendarCell({
   date = new Date(),
   className = [],
 }: MonthlyCalendarCellProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  function modalOpen() {
+    setIsModalOpen(true);
+  }
+
+  function modalClose(event: React.MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation();
+    setIsModalOpen(false);
+  }
 
   return (
     <div
@@ -20,17 +30,10 @@ export function MonthlyCalendarCell({
           ? [...className, styles.monthlyCalendarCell].join(" ")
           : `${className} ${styles.monthlyCalendarCell}`
       }
-      onClick={() => setIsOpen(true)}
+      onClick={modalOpen}
     >
       <p>{date.getDate()}</p>
-      {isOpen && (
-        <Portal>
-          <div>
-            Test Portal Content
-            <button>Close</button>
-          </div>
-        </Portal>
-      )}
+      <div>{isModalOpen && <EventAddModal toggleModal={modalClose} />}</div>
     </div>
   );
 }

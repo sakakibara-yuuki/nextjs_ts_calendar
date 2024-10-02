@@ -1,7 +1,3 @@
-import React from "react";
-
-// import './button.css';
-
 export interface ButtonProps {
   /** Is this the principal call to action on the page? */
   primary?: boolean;
@@ -12,7 +8,7 @@ export interface ButtonProps {
   /** Button contents */
   label: string;
   /** Optional click handler */
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 /** Primary UI component for user interaction */
@@ -21,6 +17,7 @@ export function Button({
   // size = 'medium',
   backgroundColor,
   label,
+  onClick = () => {},
   ...props
 }: ButtonProps) {
   // const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
@@ -28,6 +25,7 @@ export function Button({
     <button
       type="button"
       // className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
+      onClick={onClick}
       {...props}
     >
       {label}

@@ -8,18 +8,22 @@ import { CloseButton } from "@components/atoms/CloseButton";
 import { TitleInput } from "@components/atoms/TitleInput";
 import { DailyDisplay } from "@components/atoms/DailyDisplay";
 import { SaveButton } from "@components/atoms/SaveButton";
+import styles from "./styles.module.css";
 
 interface EventAddModalProps {
-  children: React.ReactNode;
+  toggleModal: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export function EventAddModal({ children }: EventAddModalProps) {
+export function EventAddModal({ toggleModal }: EventAddModalProps) {
   return (
-    <>
-      <CloseButton />
-      <TitleInput title="hoge" setTitle={() => console.log("hoge")} />
+    <div className={styles.eventAddModal}>
+      <CloseButton onClick={toggleModal} />
+      <TitleInput
+        title="This is a title"
+        setTitle={() => console.log("hoge")}
+      />
       <DailyDisplay />
       <SaveButton />
-    </>
+    </div>
   );
 }
