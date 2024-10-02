@@ -1,4 +1,3 @@
-"use client";
 import styles from "./organisms.module.css";
 import { MonthlyCalendarCell } from "@components/molecules/MonthlyCalendarCell";
 import { useState } from "react";
@@ -15,16 +14,15 @@ import {
 
 interface MonthlyCalendarProps {
   date: Date;
-  className?: string[];
+  className?: string[] | string;
 }
 
-export function MonthlyCalendar({ date, className }: MonthlyCalendarProps) {
+export function MonthlyCalendar({
+  date,
+  className = [],
+}: MonthlyCalendarProps) {
   const firstDayOfMonth: Date = startOfMonth(date);
   const lastDayOfMonth: Date = endOfMonth(date);
-
-  if (className === undefined) {
-    className = [];
-  }
 
   const monthDays = eachDayOfInterval({
     start: firstDayOfMonth,
@@ -43,7 +41,11 @@ export function MonthlyCalendar({ date, className }: MonthlyCalendarProps) {
 
   return (
     <div
-      className={[...className, styles.monthlyContainer].join(" ")}
+      className={
+        Array.isArray(className)
+          ? [...className, styles.monthlyContainer].join(" ")
+          : `${className} ${styles.monthlyContainer}`
+      }
       id="modal"
     >
       {firstDayOfMonth.getDay() === 0

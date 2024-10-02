@@ -4,7 +4,7 @@ import { Portal } from "@components/molecules/Portal";
 
 interface MonthlyCalendarCellProps {
   date: Date;
-  className?: string[];
+  className?: string[] | string;
 }
 
 export function MonthlyCalendarCell({
@@ -15,13 +15,20 @@ export function MonthlyCalendarCell({
 
   return (
     <div
-      className={[...className, styles.monthlyCalendarCell].join(" ")}
+      className={
+        Array.isArray(className)
+          ? [...className, styles.monthlyCalendarCell].join(" ")
+          : `${className} ${styles.monthlyCalendarCell}`
+      }
       onClick={() => setIsOpen(true)}
     >
       <p>{date.getDate()}</p>
       {isOpen && (
         <Portal>
-          <div>hogehoge</div>
+          <div>
+            Test Portal Content
+            <button>Close</button>
+          </div>
         </Portal>
       )}
     </div>
