@@ -12,7 +12,9 @@ export default function ViewLayout({
     <div className={styles.container}>
       <Header className={[styles.header]} />
       <Sidebar className={[styles.sidebar]} />
-      <div id="calendarContainer">{children}</div>
+      <div className={`${styles.calendar}`} id="calendarContainer">
+        {children}
+      </div>
     </div>
   );
 }

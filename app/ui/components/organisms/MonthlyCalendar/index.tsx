@@ -1,5 +1,6 @@
-import styles from "../organisms.module.css";
+import styles from "./styles.module.css";
 import { MonthlyCalendarCell } from "@components/molecules/MonthlyCalendarCell";
+import { TaskAddModal } from "@components/organisms/TaskAddModal";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -12,6 +13,7 @@ import {
   endOfWeek,
   addDays,
   addMonths,
+  isSameDay,
 } from "date-fns";
 
 interface MonthlyCalendarProps {
@@ -19,12 +21,19 @@ interface MonthlyCalendarProps {
   className?: string[] | string;
 }
 
+type TaskType = {
+  title: string;
+  date: Date;
+};
+
 export function MonthlyCalendar({
   date,
   className = [],
 }: MonthlyCalendarProps) {
   const router = useRouter();
   const [viewDate, setViewDate] = useState(date);
+
+  const [taskList, setTaskList] = useState<TaskType[]>([]);
 
   const firstDayOfMonth: Date = startOfMonth(date);
   const lastDayOfMonth: Date = endOfMonth(date);
@@ -54,6 +63,30 @@ export function MonthlyCalendar({
     router.replace(`/calendar/month/${year}/${month + 1}/${day}`);
   }
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+
+  function modalOpen(event: React.MouseEvent<HTMLDivElement>) {
+    const selected = (event.target as HTMLElement).closest("div");
+    const selectedDate = new Date(Date.parse(selected!.id));
+    setSelectedDate(selectedDate);
+    setIsModalOpen(true);
+  }
+
+  function modalClose(event: React.MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation();
+    setIsModalOpen(false);
+  }
+
+  function addTask(e: React.MouseEvent<HTMLButtonElement>) {
+    const newTask = {
+      title: (e.currentTarget.form!.elements[1] as HTMLInputElement).value,
+      date: date,
+    };
+    setTaskList([...taskList, newTask]);
+    setIsModalOpen(false);
+  }
+
   return (
     <div
       className={
@@ -67,15 +100,54 @@ export function MonthlyCalendar({
       {firstDayOfMonth.getDay() === 0
         ? []
         : beforeDaysOfMonth.map((date) => (
-            <MonthlyCalendarCell key={format(date, "yyyy/MM/dd")} date={date} />
+            <>
+              <MonthlyCalendarCell
+                key={format(date, "yyyy/MM/dd")}
+                date={date}
+                modalOpen={modalOpen}
+              />
+              {isSameDay(date, selectedDate) && isModalOpen && (
+                <TaskAddModal
+                  toggleModal={modalClose}
+                  date={date}
+                  addTask={addTask}
+                />
+              )}
+            </>
           ))}
       {monthDays.map((date) => (
-        <MonthlyCalendarCell key={format(date, "yyyy/MM/dd")} date={date} />
+        <>
+          <MonthlyCalendarCell
+            key={format(date, "yyyy/MM/dd")}
+            date={date}
+            modalOpen={modalOpen}
+          />
+          {isSameDay(date, selectedDate) && isModalOpen && (
+            <TaskAddModal
+              toggleModal={modalClose}
+              date={date}
+              addTask={addTask}
+            />
+          )}
+        </>
       ))}
       {lastDayOfMonth.getDay() === 6
         ? []
         : afterDaysOfMonth.map((date) => (
-            <MonthlyCalendarCell key={format(date, "yyyy/MM/dd")} date={date} />
+            <>
+              <MonthlyCalendarCell
+                key={format(date, "yyyy/MM/dd")}
+                date={date}
+                modalOpen={modalOpen}
+              />
+              {isSameDay(date, selectedDate) && isModalOpen && (
+                <TaskAddModal
+                  toggleModal={modalClose}
+                  date={date}
+                  addTask={addTask}
+                />
+              )}
+            </>
           ))}
     </div>
   );

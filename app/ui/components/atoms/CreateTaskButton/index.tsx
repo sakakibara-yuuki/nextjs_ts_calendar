@@ -1,12 +1,12 @@
 import { Button } from "../Button";
 import type { ButtonProps } from "../Button";
 
-interface CreateEventButtonProps extends Omit<ButtonProps, "label"> {}
+interface CreateTaskButtonProps extends Omit<ButtonProps, "label"> {}
 
-export function CreateEventButton({
+export function CreateTaskButton({
   primary = false,
   ...props
-}: CreateEventButtonProps) {
+}: CreateTaskButtonProps) {
   return (
     <Button
       primary={primary}

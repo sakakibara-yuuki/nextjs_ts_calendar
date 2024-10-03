@@ -3,7 +3,7 @@ export interface PaginationButtonProps {
   backgroundColor?: string;
   size?: "small" | "medium" | "large";
   leftAndRight?: "left" | "right";
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (e: React.MouseTask<HTMLButtonElement>) => void;
 }
 
 export function PaginationButton({

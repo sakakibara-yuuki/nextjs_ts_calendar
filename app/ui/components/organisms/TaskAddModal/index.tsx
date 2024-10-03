@@ -1,5 +1,5 @@
 /*
- * EventAddModal.tsx
+ * TaskAddModal.tsx
  * Copyright (C) 2024 sakakibara <sakakibara@organon>
  *
  * Distributed under terms of the MIT license.
@@ -10,20 +10,25 @@ import { DailyDisplay } from "@components/atoms/DailyDisplay";
 import { SaveButton } from "@components/atoms/SaveButton";
 import styles from "./styles.module.css";
 
-interface EventAddModalProps {
+interface TaskAddModalProps {
   toggleModal: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  date: Date;
+  addTask: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export function EventAddModal({ toggleModal }: EventAddModalProps) {
+export function TaskAddModal({
+  toggleModal,
+  date,
+  addTask,
+}: TaskAddModalProps) {
   return (
     <div className={styles.eventAddModal}>
-      <CloseButton onClick={toggleModal} />
-      <TitleInput
-        title="This is a title"
-        setTitle={() => console.log("hoge")}
-      />
-      <DailyDisplay />
-      <SaveButton />
+      <form>
+        <CloseButton onClick={toggleModal} />
+        <TitleInput />
+        <DailyDisplay date={date} />
+        <SaveButton onClick={addTask} />
+      </form>
     </div>
   );
 }

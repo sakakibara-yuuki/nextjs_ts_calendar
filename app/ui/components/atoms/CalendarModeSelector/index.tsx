@@ -1,6 +1,6 @@
 export interface CalendarModeSelectorProps {
   viewMode: string;
-  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange?: (e: React.ChangeTask<HTMLSelectElement>) => void;
 }
 
 export function CalendarModeSelector({

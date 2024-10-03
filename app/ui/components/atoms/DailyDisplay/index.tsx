@@ -1,7 +1,13 @@
-export function DailyDisplay() {
+import { format } from "date-fns";
+
+interface DailyDisplayProps {
+  date: Date;
+}
+
+export function DailyDisplay({ date }: DailyDisplayProps) {
   return (
     <div>
-      <h1>Daily Display</h1>
+      <p>{format(date, "yyyy/MM/dd")}</p>
     </div>
   );
 }

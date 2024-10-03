@@ -1,5 +1,5 @@
 import styles from "../molecules.module.css";
-import { EventButton } from "@components/atoms/EventButton";
+import { TaskButton } from "@components/atoms/TaskButton";
 
 interface WeeklyCalendarCellProps {
   day: Date;
@@ -13,8 +13,8 @@ export function WeeklyCalendarCell({
 }: WeeklyCalendarCellProps) {
   return (
     <div className={styles.weeklyCalendarCell} {...props}>
-      <EventButton />
-      <EventButton />
+      <TaskButton />
+      <TaskButton />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import styles from "./styles.module.css";
 import { Pagination } from "../molecules/Pagination";
 import { MonthlyCalendar } from "../organisms/MonthlyCalendar";
-import { CreateEventButton } from "../atoms/CreateEventButton";
+import { CreateTaskButton } from "../atoms/CreateTaskButton";
 import { CalendarModeSelector } from "../atoms/CalendarModeSelector";
 import { Header } from "../organisms/Header";
 
@@ -14,7 +14,7 @@ export default function RootLayout({
     <div>
       <Header />
       <div>
-        <CreateEventButton label={"新規作成"} />
+        <CreateTaskButton label={"新規作成"} />
       </div>
       {children}
       <MonthlyCalendar />

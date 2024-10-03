@@ -1,6 +1,6 @@
 import { Button } from "../Button";
 
-// export interface EventButtonProps {
+// export interface TaskButtonProps {
 //   primary?: boolean;
 //   backgroundColor?: string;
 //   size?: 'small' | 'medium' | 'large';
@@ -8,7 +8,7 @@ import { Button } from "../Button";
 //   onClick?: () => void;
 // }
 
-export function EventButton({}) {
+export function TaskButton({}) {
   const date = "2022";
   return (
     <Button
