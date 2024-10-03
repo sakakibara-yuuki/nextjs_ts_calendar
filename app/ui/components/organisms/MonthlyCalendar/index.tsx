@@ -1,6 +1,7 @@
 import styles from "./styles.module.css";
 import { MonthlyCalendarCell } from "@components/molecules/MonthlyCalendarCell";
 import { TaskAddModal } from "@components/organisms/TaskAddModal";
+import { TaskEditModal } from "@components/organisms/TaskEditModal";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -21,7 +22,8 @@ interface MonthlyCalendarProps {
   className?: string[] | string;
 }
 
-type TaskType = {
+export type TaskType = {
+  id: string;
   title: string;
   date: Date;
 };
@@ -64,9 +66,11 @@ export function MonthlyCalendar({
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   function modalOpen(event: React.MouseEvent<HTMLDivElement>) {
+    event.stopPropagation();
     const selected = (event.target as HTMLElement).closest("div");
     const selectedDate = new Date(Date.parse(selected!.id));
     setSelectedDate(selectedDate);
@@ -78,13 +82,28 @@ export function MonthlyCalendar({
     setIsModalOpen(false);
   }
 
-  function addTask(e: React.MouseEvent<HTMLButtonElement>) {
+  function addTask(event: React.MouseEvent<HTMLButtonElement>) {
     const newTask = {
-      title: (e.currentTarget.form!.elements[1] as HTMLInputElement).value,
-      date: date,
+      id: crypto.randomUUID(),
+      title: (event.currentTarget.form!.elements[1] as HTMLInputElement).value,
+      date: selectedDate,
     };
     setTaskList([...taskList, newTask]);
     setIsModalOpen(false);
+  }
+
+  function openEditModal(event: React.MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation();
+    const target = event.currentTarget.closest("[data-id]");
+    const taskId = (target as HTMLElement).dataset.id;
+    console.log(taskId);
+    setIsEditModalOpen(true);
+    for (const task of taskList) {
+      if (task.id === taskId) {
+        setSelectedDate(task.date);
+        break;
+      }
+    }
   }
 
   return (
@@ -105,6 +124,8 @@ export function MonthlyCalendar({
                 key={format(date, "yyyy/MM/dd")}
                 date={date}
                 modalOpen={modalOpen}
+                tasks={taskList.filter((task) => isSameDay(task.date, date))}
+                openEditModal={openEditModal}
               />
               {isSameDay(date, selectedDate) && isModalOpen && (
                 <TaskAddModal
@@ -112,6 +133,9 @@ export function MonthlyCalendar({
                   date={date}
                   addTask={addTask}
                 />
+              )}
+              {isSameDay(date, selectedDate) && isEditModalOpen && (
+                <TaskEditModal title={"hoge"} />
               )}
             </>
           ))}
@@ -121,6 +145,8 @@ export function MonthlyCalendar({
             key={format(date, "yyyy/MM/dd")}
             date={date}
             modalOpen={modalOpen}
+            tasks={taskList.filter((task) => isSameDay(task.date, date))}
+            openEditModal={openEditModal}
           />
           {isSameDay(date, selectedDate) && isModalOpen && (
             <TaskAddModal
@@ -139,6 +165,8 @@ export function MonthlyCalendar({
                 key={format(date, "yyyy/MM/dd")}
                 date={date}
                 modalOpen={modalOpen}
+                tasks={taskList.filter((task) => isSameDay(task.date, date))}
+                openEditModal={openEditModal}
               />
               {isSameDay(date, selectedDate) && isModalOpen && (
                 <TaskAddModal

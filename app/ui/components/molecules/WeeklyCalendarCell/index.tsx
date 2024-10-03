@@ -11,10 +11,5 @@ export function WeeklyCalendarCell({
   className,
   ...props
 }: WeeklyCalendarCellProps) {
-  return (
-    <div className={styles.weeklyCalendarCell} {...props}>
-      <TaskButton />
-      <TaskButton />
-    </div>
-  );
+  return <div className={styles.weeklyCalendarCell} {...props}></div>;
 }

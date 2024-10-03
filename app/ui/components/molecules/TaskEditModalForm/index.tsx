@@ -8,16 +8,17 @@
 import { CloseButton } from "@components/atoms/CloseButton";
 import { TitleInput } from "@components/atoms/TitleInput";
 import { SaveButton } from "@components/atoms/SaveButton";
+import { TitleDisplay } from "@components/atoms/TitleDisplay";
 
 interface TaskEditModalFormProps {
-  children: React.ReactNode;
+  title: string;
 }
 
-export function TaskEditModalForm({ children }: TaskEditModalFormProps) {
+export function TaskEditModalForm({ title }: TaskEditModalFormProps) {
   return (
     <>
       <CloseButton />
-      <TitleInput title="hoge" setTitle={() => console.log("hoge")} />
+      <p>{title}</p>
       <SaveButton />
     </>
   );

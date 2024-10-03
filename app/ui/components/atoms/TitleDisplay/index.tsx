@@ -1,8 +1,12 @@
-export function TitleDisplay() {
+interface TitleDisplayProps {
+  title: string;
+  setTitle?: () => void;
+}
+
+export function TitleDisplay({ title }: TitleDisplayProps) {
   return (
     <div>
-      <h2>❑</h2>
-      <h1>My Title</h1>
+      <h3>{title}</h3>
     </div>
   );
 }

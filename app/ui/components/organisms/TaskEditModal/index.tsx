@@ -9,14 +9,15 @@ import { TitleDisplay } from "@components/atoms/TitleDisplay";
 import { TaskDisplayModalHeader } from "@components/molecules/TaskDisplayModalHeader";
 
 interface TaskEditModalProps {
-  children: React.ReactNode;
+  //children: React.ReactNode;
+  title: string;
 }
 
-export function TaskEditModal({ children }: TaskEditModalProps) {
+export function TaskEditModal({ title }: TaskEditModalProps) {
   return (
     <>
       <TaskDisplayModalHeader />
-      <TitleDisplay />
+      <TitleDisplay title={title} />
     </>
   );
 }
