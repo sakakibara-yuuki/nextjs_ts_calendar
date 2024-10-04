@@ -9,17 +9,21 @@ import { DeleteButton } from "@components/atoms/DeleteButton";
 import { CloseButton } from "@components/atoms/CloseButton";
 
 interface TaskDisplayModalHeaderProps {
-  children?: React.ReactNode;
+  editTask?: () => void;
+  deleteTask?: () => void;
+  closeTaskEditModal?: () => void;
 }
 
 export function TaskDisplayModalHeader({
-  children,
+  editTask,
+  deleteTask,
+  closeTaskEditModal,
 }: TaskDisplayModalHeaderProps) {
   return (
     <>
-      <EditButton />
-      <DeleteButton />
-      <CloseButton />
+      <EditButton onClick={editTask} />
+      <DeleteButton onClick={deleteTask} />
+      <CloseButton onClick={closeTaskEditModal} />
     </>
   );
 }

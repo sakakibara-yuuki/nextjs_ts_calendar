@@ -9,14 +9,6 @@ import type { ButtonProps } from "../Button";
 
 interface DeleteButtonProps extends Omit<ButtonProps, "label"> {}
 
-export function DeleteButton({ primary = false, ...props }: DeleteButtonProps) {
-  return (
-    <Button
-      primary={primary}
-      onClick={() => {
-        console.log("hello");
-      }}
-      label="削除🗑"
-    />
-  );
+export function DeleteButton({ onClick, ...props }: DeleteButtonProps) {
+  return <Button primary={false} onClick={onClick} label="削除🗑" {...props} />;
 }

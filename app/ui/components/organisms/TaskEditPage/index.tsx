@@ -4,12 +4,15 @@
  *
  * Distributed under terms of the MIT license.
  */
-import { TaskEditModalForm } from "@components/molecules/TaskEditModalForm";
+import { CloseButton } from "@components/atoms/CloseButton";
+import { SaveButton } from "@components/atoms/SaveButton";
 
-interface TaskEditPageProps {
-  children: React.ReactNode;
-}
-
-export function TaskEditPage({ children }: TaskEditPageProps) {
-  return <TaskEditModalForm>hoge</TaskEditModalForm>;
+export function TaskEditPage({ title }: { title: string }) {
+  return (
+    <>
+      <CloseButton />
+      <p>{title}</p>
+      <SaveButton />
+    </>
+  );
 }

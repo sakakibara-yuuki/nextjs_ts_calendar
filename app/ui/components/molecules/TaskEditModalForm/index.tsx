@@ -6,9 +6,7 @@
  */
 
 import { CloseButton } from "@components/atoms/CloseButton";
-import { TitleInput } from "@components/atoms/TitleInput";
 import { SaveButton } from "@components/atoms/SaveButton";
-import { TitleDisplay } from "@components/atoms/TitleDisplay";
 
 interface TaskEditModalFormProps {
   title: string;

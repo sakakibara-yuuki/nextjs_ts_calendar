@@ -25,7 +25,7 @@ export function Header({ className }: HeaderProps) {
 
   useEffect(() => {
     router.replace(`/calendar/${viewMode}/${year}/${month}/${day}`);
-  }, [viewMode]);
+  }, [viewMode, year, month, day, router]);
 
   function routeNext() {
     if (viewMode === "month") {

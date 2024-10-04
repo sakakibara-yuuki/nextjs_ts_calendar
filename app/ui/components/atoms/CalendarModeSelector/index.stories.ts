@@ -9,11 +9,7 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-  args: {
-    onClick: () => {
-      console.log("hello");
-    },
-  },
+  args: {},
 } satisfies Meta<typeof CalendarModeSelector>;
 
 export default meta;

@@ -9,14 +9,6 @@ import type { ButtonProps } from "../Button";
 
 interface EditButtonProps extends Omit<ButtonProps, "label"> {}
 
-export function EditButton({ primary = false, ...props }: EditButtonProps) {
-  return (
-    <Button
-      primary={primary}
-      onClick={() => {
-        console.log("hello");
-      }}
-      label="編集✎"
-    />
-  );
+export function EditButton({ onClick, ...props }: EditButtonProps) {
+  return <Button primary={false} onClick={onClick} label="編集✎" {...props} />;
 }

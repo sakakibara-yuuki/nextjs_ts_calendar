@@ -32,6 +32,7 @@ export function MonthlyCalendarCell({
       {tasks.map((task) => (
         <TaskButton
           label={`${task.title} ${format(date, "yyyy/MM/dd")}`}
+          key={task.id}
           id={task.id}
           openEditModal={openEditModal}
         />

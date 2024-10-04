@@ -1,9 +1,13 @@
 import styles from "./styles.module.css";
 import { MonthlyCalendarCell } from "@components/molecules/MonthlyCalendarCell";
 import { TaskAddModal } from "@components/organisms/TaskAddModal";
+import { Portal } from "@components/molecules/Portal";
 import { TaskEditModal } from "@components/organisms/TaskEditModal";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { TaskType } from "types/task";
+import { TaskListContext } from "context/tasklist";
+import { useContext } from "react";
 
 import {
   format,
@@ -22,12 +26,6 @@ interface MonthlyCalendarProps {
   className?: string[] | string;
 }
 
-export type TaskType = {
-  id: string;
-  title: string;
-  date: Date;
-};
-
 export function MonthlyCalendar({
   date,
   className = [],
@@ -35,7 +33,12 @@ export function MonthlyCalendar({
   const router = useRouter();
   const [viewDate, setViewDate] = useState(date);
 
-  const [taskList, setTaskList] = useState<TaskType[]>([]);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [selectedTask, setSelectedTask] = useState<TaskType>();
+
+  const { taskList, setTaskList } = useContext(TaskListContext);
 
   const firstDayOfMonth: Date = startOfMonth(date);
   const lastDayOfMonth: Date = endOfMonth(date);
@@ -65,21 +68,23 @@ export function MonthlyCalendar({
     router.replace(`/calendar/month/${year}/${month + 1}/${day}`);
   }
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  function closeAllModal() {
+    setIsAddModalOpen(false);
+    setIsEditModalOpen(false);
+  }
 
-  function modalOpen(event: React.MouseEvent<HTMLDivElement>) {
+  function openTaskAddModal(event: React.MouseEvent<HTMLDivElement>) {
     event.stopPropagation();
+    closeAllModal();
     const selected = (event.target as HTMLElement).closest("div");
     const selectedDate = new Date(Date.parse(selected!.id));
     setSelectedDate(selectedDate);
-    setIsModalOpen(true);
+    setIsAddModalOpen(true);
   }
 
-  function modalClose(event: React.MouseEvent<HTMLButtonElement>) {
+  function closeTaskAddModal(event: React.MouseEvent<HTMLButtonElement>) {
     event.stopPropagation();
-    setIsModalOpen(false);
+    closeAllModal();
   }
 
   function addTask(event: React.MouseEvent<HTMLButtonElement>) {
@@ -89,94 +94,99 @@ export function MonthlyCalendar({
       date: selectedDate,
     };
     setTaskList([...taskList, newTask]);
-    setIsModalOpen(false);
+    closeAllModal();
   }
 
   function openEditModal(event: React.MouseEvent<HTMLButtonElement>) {
     event.stopPropagation();
     const target = event.currentTarget.closest("[data-id]");
     const taskId = (target as HTMLElement).dataset.id;
-    console.log(taskId);
     setIsEditModalOpen(true);
     for (const task of taskList) {
       if (task.id === taskId) {
-        setSelectedDate(task.date);
+        setSelectedTask(task);
         break;
       }
     }
   }
 
+  function closeTaskEditModal() {
+    closeAllModal();
+  }
+
+  function deleteTask() {
+    setTaskList(taskList.filter((task) => task.id !== selectedTask!.id));
+    closeAllModal();
+  }
+
+  function editTask() {
+    closeAllModal();
+    router.push(`/edit/${selectedTask!.id}`);
+  }
+
   return (
-    <div
-      className={
-        Array.isArray(className)
-          ? [...className, styles.monthlyContainer].join(" ")
-          : `${className} ${styles.monthlyContainer}`
-      }
-      id="modal"
-      onWheel={(e) => scrollHandler(e)}
-    >
-      {firstDayOfMonth.getDay() === 0
-        ? []
-        : beforeDaysOfMonth.map((date) => (
-            <>
+    <>
+      <div
+        className={
+          Array.isArray(className)
+            ? [...className, styles.monthlyContainer].join(" ")
+            : `${className} ${styles.monthlyContainer}`
+        }
+        id="modal"
+        onWheel={(e) => scrollHandler(e)}
+      >
+        {firstDayOfMonth.getDay() === 0
+          ? []
+          : beforeDaysOfMonth.map((date) => (
               <MonthlyCalendarCell
                 key={format(date, "yyyy/MM/dd")}
                 date={date}
-                modalOpen={modalOpen}
+                modalOpen={openTaskAddModal}
                 tasks={taskList.filter((task) => isSameDay(task.date, date))}
                 openEditModal={openEditModal}
               />
-              {isSameDay(date, selectedDate) && isModalOpen && (
-                <TaskAddModal
-                  toggleModal={modalClose}
-                  date={date}
-                  addTask={addTask}
-                />
-              )}
-              {isSameDay(date, selectedDate) && isEditModalOpen && (
-                <TaskEditModal title={"hoge"} />
-              )}
-            </>
-          ))}
-      {monthDays.map((date) => (
-        <>
+            ))}
+        {monthDays.map((date) => (
           <MonthlyCalendarCell
             key={format(date, "yyyy/MM/dd")}
             date={date}
-            modalOpen={modalOpen}
+            modalOpen={openTaskAddModal}
             tasks={taskList.filter((task) => isSameDay(task.date, date))}
             openEditModal={openEditModal}
           />
-          {isSameDay(date, selectedDate) && isModalOpen && (
-            <TaskAddModal
-              toggleModal={modalClose}
-              date={date}
-              addTask={addTask}
-            />
-          )}
-        </>
-      ))}
-      {lastDayOfMonth.getDay() === 6
-        ? []
-        : afterDaysOfMonth.map((date) => (
-            <>
+        ))}
+        {lastDayOfMonth.getDay() === 6
+          ? []
+          : afterDaysOfMonth.map((date) => (
               <MonthlyCalendarCell
                 key={format(date, "yyyy/MM/dd")}
                 date={date}
-                modalOpen={modalOpen}
+                modalOpen={openTaskAddModal}
                 tasks={taskList.filter((task) => isSameDay(task.date, date))}
                 openEditModal={openEditModal}
               />
-              {isSameDay(date, selectedDate) && isModalOpen && (
-                <TaskAddModal
-                  toggleModal={modalClose}
-                  date={date}
-                  addTask={addTask}
-                />
-              )}
-            </>
-          ))}
-    </div>
+            ))}
+      </div>
+      {isAddModalOpen && (
+        <Portal>
+          <TaskAddModal
+            toggleModal={closeTaskAddModal}
+            date={selectedDate}
+            addTask={addTask}
+          />
+        </Portal>
+      )}
+      {isEditModalOpen && (
+        <Portal>
+          <TaskEditModal
+            title={selectedTask!.title}
+            date={selectedTask!.date}
+            editTask={editTask}
+            deleteTask={deleteTask}
+            closeTaskEditModal={closeTaskEditModal}
+          />
+        </Portal>
+      )}
+    </>
   );
 }
