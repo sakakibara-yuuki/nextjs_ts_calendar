@@ -63,9 +63,9 @@ export function MonthlyCalendar({
     const month = viewDate.getMonth();
     const day = viewDate.getDate();
     setViewDate(addMonths(viewDate, e.deltaY > 0 ? 1 : -1));
-    router.prefetch(`/calendar/month/${year}/${month + 1 - 1}/${day}`);
-    router.prefetch(`/calendar/month/${year}/${month + 1 + 1}/${day}`);
-    router.replace(`/calendar/month/${year}/${month + 1}/${day}`);
+    router.prefetch(`/calendar/view/month/${year}/${month + 1 - 1}/${day}`);
+    router.prefetch(`/calendar/view/month/${year}/${month + 1 + 1}/${day}`);
+    router.push(`/calendar/view/month/${year}/${month + 1}/${day}`);
   }
 
   function closeAllModal() {
@@ -97,7 +97,7 @@ export function MonthlyCalendar({
     closeAllModal();
   }
 
-  function openEditModal(event: React.MouseEvent<HTMLButtonElement>) {
+  function openTaskEditModal(event: React.MouseEvent<HTMLButtonElement>) {
     event.stopPropagation();
     const target = event.currentTarget.closest("[data-id]");
     const taskId = (target as HTMLElement).dataset.id;
@@ -121,7 +121,9 @@ export function MonthlyCalendar({
 
   function editTask() {
     closeAllModal();
-    router.push(`/edit/${selectedTask!.id}`);
+    router.push(
+      `/calendar/edit/${selectedTask!.id}?view=month&date=${format(selectedTask!.date, "yyyy-MM-dd")}`,
+    );
   }
 
   return (
@@ -143,7 +145,7 @@ export function MonthlyCalendar({
                 date={date}
                 modalOpen={openTaskAddModal}
                 tasks={taskList.filter((task) => isSameDay(task.date, date))}
-                openEditModal={openEditModal}
+                openEditModal={openTaskEditModal}
               />
             ))}
         {monthDays.map((date) => (
@@ -152,7 +154,7 @@ export function MonthlyCalendar({
             date={date}
             modalOpen={openTaskAddModal}
             tasks={taskList.filter((task) => isSameDay(task.date, date))}
-            openEditModal={openEditModal}
+            openEditModal={openTaskEditModal}
           />
         ))}
         {lastDayOfMonth.getDay() === 6
@@ -163,7 +165,7 @@ export function MonthlyCalendar({
                 date={date}
                 modalOpen={openTaskAddModal}
                 tasks={taskList.filter((task) => isSameDay(task.date, date))}
-                openEditModal={openEditModal}
+                openEditModal={openTaskEditModal}
               />
             ))}
       </div>

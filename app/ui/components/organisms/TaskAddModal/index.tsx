@@ -16,6 +16,7 @@ interface TaskAddModalProps {
   addTask: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
+//<DailyDisplay date={date} />
 export function TaskAddModal({
   toggleModal,
   date,
@@ -26,7 +27,6 @@ export function TaskAddModal({
       <form>
         <CloseButton onClick={toggleModal} />
         <TitleInput />
-        <DailyDisplay date={date} />
         <SaveButton onClick={addTask} />
       </form>
     </div>

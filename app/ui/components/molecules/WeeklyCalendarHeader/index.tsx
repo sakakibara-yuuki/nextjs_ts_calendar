@@ -1,4 +1,5 @@
 import styles from "../molecules.module.css";
+import { addDays } from "date-fns";
 
 interface WeeklyCalendarHeaderProps {
   firstDayOfWeek: Date;
@@ -7,36 +8,30 @@ interface WeeklyCalendarHeaderProps {
 
 export function WeeklyCalendarHeader({
   firstDayOfWeek = new Date(),
-  className,
+  className = [],
 }: WeeklyCalendarHeaderProps) {
-  if (className === undefined) {
-    className = [];
-  }
-
-  const day = firstDayOfWeek.getDate();
-
   return (
     <div className={[...className, styles.weeklyCalendarHeader].join(" ")}>
       <div>
-        日<p>{day - 1}</p>
+        日<p>{addDays(firstDayOfWeek, 0).getDate()}</p>
       </div>
       <div>
-        月<p>{day}</p>
+        月<p>{addDays(firstDayOfWeek, 1).getDate()}</p>
       </div>
       <div>
-        火<p>{day + 1}</p>
+        火<p>{addDays(firstDayOfWeek, 2).getDate()}</p>
       </div>
       <div>
-        水<p>{day + 2}</p>
+        水<p>{addDays(firstDayOfWeek, 3).getDate()}</p>
       </div>
       <div>
-        木<p>{day + 3}</p>
+        木<p>{addDays(firstDayOfWeek, 4).getDate()}</p>
       </div>
       <div>
-        金<p>{day + 4}</p>
+        金<p>{addDays(firstDayOfWeek, 5).getDate()}</p>
       </div>
       <div>
-        土<p>{day + 5}</p>
+        土<p>{addDays(firstDayOfWeek, 6).getDate()}</p>
       </div>
     </div>
   );

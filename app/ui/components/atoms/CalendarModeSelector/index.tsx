@@ -1,6 +1,8 @@
+import styles from "./styles.module.css";
+
 export interface CalendarModeSelectorProps {
   viewMode: string;
-  onChange?: (e: React.ChangeTask<HTMLSelectElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export function CalendarModeSelector({
@@ -8,7 +10,11 @@ export function CalendarModeSelector({
   onChange = () => {},
 }: CalendarModeSelectorProps) {
   return (
-    <select value={viewMode} onChange={(e) => onChange(e)}>
+    <select
+      value={viewMode}
+      onChange={onChange}
+      className={styles.calendarModeSelector}
+    >
       <option value="month">月</option>
       <option value="week">週</option>
     </select>

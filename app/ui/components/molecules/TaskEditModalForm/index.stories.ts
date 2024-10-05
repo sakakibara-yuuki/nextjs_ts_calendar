@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { EventEditModalForm } from "../EventEditModalForm";
+import { TaskEditModalForm } from "../TaskEditModalForm";
 
 const meta = {
-  title: "Molecules/EventEditModalForm",
-  component: EventEditModalForm,
-} satisfies Meta<typeof EventEditModalForm>;
+  title: "Molecules/TaskEditModalForm",
+  component: TaskEditModalForm,
+} satisfies Meta<typeof TaskEditModalForm>;
 
 export default meta;
 

@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 import { format } from "date-fns";
-import { TaskType } from "@components/organisms/MonthlyCalendar";
+import { TaskType } from "types/task";
 import { TaskButton } from "@components/atoms/TaskButton";
 
 interface MonthlyCalendarCellProps {

@@ -1,22 +1,21 @@
+import { Button } from "@components/atoms/Button";
+
 export interface PaginationButtonProps {
-  primary?: boolean;
-  backgroundColor?: string;
-  size?: "small" | "medium" | "large";
+  className?: string[];
   leftAndRight?: "left" | "right";
-  onClick?: (e: React.MouseTask<HTMLButtonElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export function PaginationButton({
-  primary = false,
-  size = "medium",
-  backgroundColor,
+  className = [],
   leftAndRight = "left",
   onClick = () => {},
-  ...props
 }: PaginationButtonProps) {
   return (
-    <button type="button" {...props} onClick={onClick}>
-      {leftAndRight === "left" ? "<" : ">"}
-    </button>
+    <Button
+      className={className}
+      onClick={onClick}
+      label={leftAndRight === "left" ? "<" : ">"}
+    />
   );
 }

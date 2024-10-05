@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { EventDisplayModalHeader } from "../EventDisplayModalHeader";
+import { TaskDisplayModalHeader } from "../TaskDisplayModalHeader";
 
 const meta = {
-  title: "Molecules/EventDisplayModalHeader",
-  component: EventDisplayModalHeader,
-} satisfies Meta<typeof EventDisplayModalHeader>;
+  title: "Molecules/TaskDisplayModalHeader",
+  component: TaskDisplayModalHeader,
+} satisfies Meta<typeof TaskDisplayModalHeader>;
 
 export default meta;
 

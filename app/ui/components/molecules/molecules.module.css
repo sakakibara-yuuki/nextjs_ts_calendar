@@ -26,4 +26,27 @@
   grid-template-columns: 1fr 1fr auto;
   justify-items: center;
   align-items: center;
+  background-color: var(--md-sys-color-secondary-container);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+}
+
+.pagination > button {
+  border: none;
+  background-color: transparent;
+  color: var(--md-sys-color-on-secondary-container);
+  cursor: pointer;
+  width: 100%;
+  padding: 0.25em;
+  text-align: center;
+}
+
+.pagination > button:hover {
+  background-color: var(--md-sys-color-secondary);
+  color: var(--md-sys-color-on-secondary);
+  border-radius: 0.25em;
+}
+
+.pagination > p {
+  padding-left: 0.25em;
 }

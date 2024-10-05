@@ -4,6 +4,6 @@ export default function Home() {
   const today = new Date();
 
   return redirect(
-    `calendar/month/${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}/`,
+    `calendar/view/month/${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}/`,
   );
 }

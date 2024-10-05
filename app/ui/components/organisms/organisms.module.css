@@ -26,6 +26,17 @@
 
 .sidebar button {
   margin-top: 2em;
+  border: none;
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background-color: var(--md-sys-color-primary);
+  transform: scale(1.025);
 }
 
 .weeklyContainer {

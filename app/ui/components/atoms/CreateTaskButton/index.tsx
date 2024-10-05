@@ -4,16 +4,8 @@ import type { ButtonProps } from "../Button";
 interface CreateTaskButtonProps extends Omit<ButtonProps, "label"> {}
 
 export function CreateTaskButton({
-  primary = false,
-  ...props
+  onClick,
+  className = [],
 }: CreateTaskButtonProps) {
-  return (
-    <Button
-      primary={primary}
-      onClick={() => {
-        console.log("hello");
-      }}
-      label="新規作成"
-    />
-  );
+  return <Button className={className} onClick={onClick} label="＋新規作成" />;
 }
