@@ -2,9 +2,11 @@ import styles from "../organisms.module.css";
 import { Pagination } from "@components/molecules/Pagination";
 import { CalendarModeSelector } from "@components/atoms/CalendarModeSelector";
 import { useParamsToDate } from "@hooks/useParamsToDate";
-import { useState, useEffect, useRef } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { addMonths, subMonths, addWeeks, subWeeks } from "date-fns";
+import { useContext } from "react";
+import { ViewContext } from "context/view";
 
 interface HeaderProps {
   className?: string[];
@@ -12,54 +14,63 @@ interface HeaderProps {
 
 export function Header({ className = [] }: HeaderProps) {
   const date = useParamsToDate();
-  const pathname = usePathname();
-  const firstViewMode = pathname.split("/")[3];
-  const [viewMode, setViewMode] = useState(firstViewMode);
+  const { viewMode, setViewMode } = useContext(ViewContext);
 
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
   const router = useRouter();
+  const [year, setYear] = useState(date.getFullYear());
+  const [month, setMonth] = useState(date.getMonth() + 1);
+  const [day, setDay] = useState(date.getDate());
 
   function routeNext() {
+    let newYear: number;
+    let newMonth: number;
+    let newDay: number;
+
     if (viewMode === "month") {
       const nextMonthDate = addMonths(date, 1);
-      const year = nextMonthDate.getFullYear();
-      const month = nextMonthDate.getMonth() + 1;
-      const day = nextMonthDate.getDate();
-      router.push(`/calendar/view/month/${year}/${month}/${day}`);
+      newYear = nextMonthDate.getFullYear();
+      newMonth = nextMonthDate.getMonth() + 1;
+      newDay = nextMonthDate.getDate();
     } else {
       const nextWeekDate = addWeeks(date, 1);
-      const year = nextWeekDate.getFullYear();
-      const month = nextWeekDate.getMonth() + 1;
-      const day = nextWeekDate.getDate();
-      router.push(`/calendar/view/week/${year}/${month}/${day}`);
+      newYear = nextWeekDate.getFullYear();
+      newMonth = nextWeekDate.getMonth() + 1;
+      newDay = nextWeekDate.getDate();
     }
+    setYear(newYear);
+    setMonth(newMonth);
+    setDay(newDay);
   }
 
   function routePrevious() {
+    let newYear: number;
+    let newMonth: number;
+    let newDay: number;
+
     if (viewMode === "month") {
       const prevMonthDate = subMonths(date, 1);
-      const year = prevMonthDate.getFullYear();
-      const month = prevMonthDate.getMonth() + 1;
-      const day = prevMonthDate.getDate();
-      router.push(`/calendar/view/${viewMode}/${year}/${month}/${day}`);
+      newYear = prevMonthDate.getFullYear();
+      newMonth = prevMonthDate.getMonth() + 1;
+      newDay = prevMonthDate.getDate();
     } else {
       const prevWeekDate = subWeeks(date, 1);
-      const year = prevWeekDate.getFullYear();
-      const month = prevWeekDate.getMonth() + 1;
-      const day = prevWeekDate.getDate();
-      router.push(`/calendar/view/${viewMode}/${year}/${month}/${day}`);
+      newYear = prevWeekDate.getFullYear();
+      newMonth = prevWeekDate.getMonth() + 1;
+      newDay = prevWeekDate.getDate();
     }
+    setYear(newYear);
+    setMonth(newMonth);
+    setDay(newDay);
   }
 
   function switchViewMode(event: React.ChangeEvent<HTMLSelectElement>) {
+    event.preventDefault();
     setViewMode(event.target.value);
   }
 
   useEffect(() => {
     router.push(`/calendar/view/${viewMode}/${year}/${month}/${day}`);
-  }, [viewMode, year, month, day, router]);
+  }, [viewMode, year, month, day]);
 
   return (
     <header className={[...className, styles.headerContainer].join(" ")}>

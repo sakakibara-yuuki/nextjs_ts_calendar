@@ -6,14 +6,14 @@
  */
 import { createContext } from "react";
 
-type TaskListContextType = {
+type ViewContextType = {
   viewMode: string;
   setViewMode: React.Dispatch<React.SetStateAction<string>>;
   date: Date;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
 };
 
-export const TaskListContext = createContext<TaskListContextType>({
+export const ViewContext = createContext<ViewContextType>({
   viewMode: "month",
   setViewMode: () => {},
   date: new Date(),

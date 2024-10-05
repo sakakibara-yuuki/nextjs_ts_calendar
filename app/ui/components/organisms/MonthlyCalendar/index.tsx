@@ -3,11 +3,10 @@ import { MonthlyCalendarCell } from "@components/molecules/MonthlyCalendarCell";
 import { TaskAddModal } from "@components/organisms/TaskAddModal";
 import { Portal } from "@components/molecules/Portal";
 import { TaskEditModal } from "@components/organisms/TaskEditModal";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { TaskType } from "types/task";
 import { TaskListContext } from "context/tasklist";
-import { useContext } from "react";
 
 import {
   format,
@@ -31,7 +30,6 @@ export function MonthlyCalendar({
   className = [],
 }: MonthlyCalendarProps) {
   const router = useRouter();
-  const [viewDate, setViewDate] = useState(date);
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -59,13 +57,14 @@ export function MonthlyCalendar({
   });
 
   function scrollHandler(e: React.WheelEvent<HTMLDivElement>) {
-    const year = viewDate.getFullYear();
-    const month = viewDate.getMonth();
-    const day = viewDate.getDate();
-    setViewDate(addMonths(viewDate, e.deltaY > 0 ? 1 : -1));
-    router.prefetch(`/calendar/view/month/${year}/${month + 1 - 1}/${day}`);
-    router.prefetch(`/calendar/view/month/${year}/${month + 1 + 1}/${day}`);
-    router.push(`/calendar/view/month/${year}/${month + 1}/${day}`);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    if (e.deltaY > 0) {
+      router.push(`/calendar/view/month/${year}/${month - 1}/${day}`);
+    } else {
+      router.push(`/calendar/view/month/${year}/${month + 1}/${day}`);
+    }
   }
 
   function closeAllModal() {
@@ -120,7 +119,6 @@ export function MonthlyCalendar({
   }
 
   function editTask() {
-    closeAllModal();
     router.push(
       `/calendar/edit/${selectedTask!.id}?view=month&date=${format(selectedTask!.date, "yyyy-MM-dd")}`,
     );

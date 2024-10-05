@@ -84,7 +84,7 @@ export function WeeklyCalendar({ date = new Date() }: WeeklyCalendarProps) {
   }
 
   function editTask() {
-    closeAllModal();
+    //closeAllModal();
     router.push(
       `/calendar/edit/${selectedTask!.id}?view=week&date=${format(selectedTask!.date, "yyyy-MM-dd")}`,
     );
