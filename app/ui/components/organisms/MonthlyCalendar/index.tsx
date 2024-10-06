@@ -58,13 +58,14 @@ export function MonthlyCalendar({
 
   function scrollHandler(e: React.WheelEvent<HTMLDivElement>) {
     const year = date.getFullYear();
-    const month = date.getMonth() + 1;
     const day = date.getDate();
+    let month: number;
     if (e.deltaY > 0) {
-      router.push(`/calendar/view/month/${year}/${month - 1}/${day}`);
+      month = addMonths(date, 1).getMonth() + 1;
     } else {
-      router.push(`/calendar/view/month/${year}/${month + 1}/${day}`);
+      month = addMonths(date, -1).getMonth() + 1;
     }
+    router.push(`/calendar/view/month/${year}/${month}/${day}`);
   }
 
   function closeAllModal() {
