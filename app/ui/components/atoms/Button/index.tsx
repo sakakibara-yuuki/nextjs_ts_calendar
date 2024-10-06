@@ -1,5 +1,5 @@
 export interface ButtonProps {
-  className?: string[];
+  className?: string[] | string;
   label: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
@@ -13,7 +13,9 @@ export function Button({
   return (
     <button
       type="button"
-      className={[...className].join(" ")}
+      className={
+        Array.isArray(className) ? [...className].join(" ") : className
+      }
       onClick={onClick}
       {...props}
     >

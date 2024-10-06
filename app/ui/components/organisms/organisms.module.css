@@ -46,10 +46,12 @@
   justify-items: center;
   overflow-y: auto;
   height: 100vh;
+  padding: 0 1em;
 }
 
 .weeklyCalendarHeader {
   position: sticky;
+  background-color: var(--md-sys-color-surface);
   top: 0;
   z-index: 1;
 }

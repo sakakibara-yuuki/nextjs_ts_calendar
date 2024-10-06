@@ -6,15 +6,25 @@
  */
 import { Button } from "../Button";
 import type { ButtonProps } from "../Button";
+import styles from "./styles.module.css";
 
 interface CloseButtonProps extends Omit<ButtonProps, "label"> {}
 
 export function CloseButton({
-  primary = false,
   onClick,
+  className,
   ...props
 }: CloseButtonProps) {
   return (
-    <Button primary={primary} onClick={onClick} label="閉じるx" {...props} />
+    <Button
+      onClick={onClick}
+      className={
+        Array.isArray(className)
+          ? [...className, styles.closeButton]
+          : `${className} ${styles.closeButton}`
+      }
+      label="閉じるx"
+      {...props}
+    />
   );
 }

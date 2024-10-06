@@ -12,18 +12,20 @@ interface TaskDisplayModalHeaderProps {
   editTask?: () => void;
   deleteTask?: () => void;
   closeTaskEditModal?: () => void;
+  className?: string;
 }
 
 export function TaskDisplayModalHeader({
   editTask,
   deleteTask,
   closeTaskEditModal,
+  className,
 }: TaskDisplayModalHeaderProps) {
   return (
-    <>
+    <div className={className}>
       <EditButton onClick={editTask} />
       <DeleteButton onClick={deleteTask} />
       <CloseButton onClick={closeTaskEditModal} />
-    </>
+    </div>
   );
 }

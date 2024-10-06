@@ -1,6 +1,9 @@
 import styles from "../organisms.module.css";
 import { CreateTaskButton } from "@components/atoms/CreateTaskButton";
 import { useRouter } from "next/navigation";
+import { format } from "date-fns";
+import { TaskListContext } from "context/tasklist";
+import { useContext } from "react";
 
 interface SidebarProps {
   className?: string[];
@@ -8,9 +11,18 @@ interface SidebarProps {
 
 export function Sidebar({ className = [] }: SidebarProps) {
   const router = useRouter();
+  const { taskList, setTaskList } = useContext(TaskListContext);
 
   function createNewTask() {
-    router.push("/calendar/view/week/2024/11/3");
+    const newTask = {
+      id: crypto.randomUUID(),
+      title: "",
+      date: new Date(),
+    };
+    setTaskList([...taskList, newTask]);
+    router.push(
+      `/calendar/edit/${newTask.id}?view=month&date=${format(newTask.date, "yyyy-MM-dd")}`,
+    );
   }
 
   return (

@@ -23,9 +23,9 @@ export function WeeklyCalendarCell({
       onClick={modalOpen}
       data-id={format(date, "yyyy-MM-dd")}
     >
-      <p>hogehoge</p>
       {tasks.map((task) => (
         <TaskButton
+          className={styles.taskButton}
           label={`${task.title} ${format(date, "yyyy/MM/dd")}`}
           key={task.id}
           id={task.id}

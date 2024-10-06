@@ -7,6 +7,17 @@
 
 .taskEditModal {
   position: absolute;
-  top: 50%;
-  left: 50;
+  top: 50vh;
+  left: 50vw;
+  background-color: var(--md-sys-color-secondary-container);
+  padding: 1em;
+  border-radius: 10px;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.taskDisplayModalHeader {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
 }

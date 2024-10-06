@@ -21,12 +21,12 @@ import {
 } from "date-fns";
 
 interface MonthlyCalendarProps {
-  date: Date;
+  date?: Date;
   className?: string[] | string;
 }
 
 export function MonthlyCalendar({
-  date,
+  date = new Date(),
   className = [],
 }: MonthlyCalendarProps) {
   const router = useRouter();
@@ -76,7 +76,7 @@ export function MonthlyCalendar({
   function openTaskAddModal(event: React.MouseEvent<HTMLDivElement>) {
     event.stopPropagation();
     closeAllModal();
-    const selected = (event.target as HTMLElement).closest("div");
+    const selected = event.currentTarget as HTMLElement;
     const selectedDate = new Date(Date.parse(selected!.id));
     setSelectedDate(selectedDate);
     setIsAddModalOpen(true);
@@ -140,6 +140,7 @@ export function MonthlyCalendar({
           ? []
           : beforeDaysOfMonth.map((date) => (
               <MonthlyCalendarCell
+                className={styles.monthlyCalendarCellBefore}
                 key={format(date, "yyyy/MM/dd")}
                 date={date}
                 modalOpen={openTaskAddModal}
@@ -160,6 +161,7 @@ export function MonthlyCalendar({
           ? []
           : afterDaysOfMonth.map((date) => (
               <MonthlyCalendarCell
+                className={styles.monthlyCalendarCellAfter}
                 key={format(date, "yyyy/MM/dd")}
                 date={date}
                 modalOpen={openTaskAddModal}

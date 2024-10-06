@@ -5,8 +5,9 @@ import { TitleInput } from "@components/atoms/TitleInput";
 import { TaskListContext } from "context/tasklist";
 import { useContext } from "react";
 import { useParams } from "next/navigation";
-import { format } from "date-fns";
+import { DailyDisplay } from "@components/atoms/DailyDisplay";
 import { useRouter } from "next/navigation";
+import styles from "./page.module.css";
 
 export default function Page() {
   const { taskList, setTaskList } = useContext(TaskListContext);
@@ -23,23 +24,29 @@ export default function Page() {
   function saveClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     const newtitle = event.currentTarget.form!.elements[1] as HTMLInputElement;
+
     setTaskList(
-      taskList.map((task) => {
-        if (task.id === selectedTask!.id) {
-          return { ...task, title: newtitle.value };
-        }
-        return task;
-      }),
+      taskList
+        .map((task) => {
+          if (task.id === selectedTask!.id) {
+            return { ...task, title: newtitle.value };
+          }
+          return task;
+        })
+        .filter((task) => task.title !== ""),
     );
     backClick(event);
   }
 
   return (
-    <form>
-      <CloseButton onClick={backClick} />
-      <TitleInput defaultValue={selectedTask!.title} />
-      <SaveButton onClick={saveClick} />
-      <p>{format(selectedTask!.date, "yyyy/MM/dd")}</p>
+    <form className={styles.editPage}>
+      <CloseButton className={styles.closeButton} onClick={backClick} />
+      <TitleInput
+        className={styles.titleInput}
+        defaultValue={selectedTask!.title}
+      />
+      <SaveButton className={styles.saveButton} onClick={saveClick} />
+      <DailyDisplay date={selectedTask!.date} />
     </form>
   );
 }

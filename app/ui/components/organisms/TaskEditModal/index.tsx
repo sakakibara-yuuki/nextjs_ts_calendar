@@ -8,7 +8,7 @@
 import styles from "./styles.module.css";
 import { TitleDisplay } from "@components/atoms/TitleDisplay";
 import { TaskDisplayModalHeader } from "@components/molecules/TaskDisplayModalHeader";
-import { format } from "date-fns";
+import { DailyDisplay } from "@components/atoms/DailyDisplay";
 
 interface TaskEditModalProps {
   title: string;
@@ -31,9 +31,10 @@ export function TaskEditModal({
         editTask={editTask}
         deleteTask={deleteTask}
         closeTaskEditModal={closeTaskEditModal}
+        className={styles.taskDisplayModalHeader}
       />
       <TitleDisplay title={title} />
-      <p>{format(date, "yyyy/MM/dd")}</p>
+      <DailyDisplay date={date} />
     </div>
   );
 }
