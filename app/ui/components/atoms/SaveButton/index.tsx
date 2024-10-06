@@ -2,7 +2,10 @@ import type { ButtonProps } from "../Button";
 import { Button } from "../Button";
 import styles from "./styles.module.css";
 
-interface SaveButtonProps extends Omit<ButtonProps, "label"> {}
+interface SaveButtonProps {
+  className?: string;
+  onClick: ButtonProps["onClick"];
+}
 
 export function SaveButton({ className, onClick }: SaveButtonProps) {
   return (

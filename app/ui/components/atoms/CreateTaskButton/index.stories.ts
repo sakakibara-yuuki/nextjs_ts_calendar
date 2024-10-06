@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { CreateEventButton } from "./index";
+import { CreateTaskButton } from "./index";
 
 const meta = {
-  title: "Atoms/CreateEventButton",
-  component: CreateEventButton,
+  title: "Atoms/CreateTaskButton",
+  component: CreateTaskButton,
   parameters: {
     layout: "centered",
   },
@@ -14,16 +14,12 @@ const meta = {
       console.log("hello");
     },
   },
-} satisfies Meta<typeof CreateEventButton>;
+} satisfies Meta<typeof CreateTaskButton>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: {
-    primary: true,
-    label: "新規作成",
-    size: "large",
-  },
+  args: {},
 };

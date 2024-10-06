@@ -8,15 +8,13 @@ import { Button } from "../Button";
 import type { ButtonProps } from "../Button";
 import styles from "./styles.module.css";
 
-interface DeleteButtonProps extends Omit<ButtonProps, "label"> {}
+interface DeleteButtonProps {
+  onClick: ButtonProps["onClick"];
+  className?: string;
+}
 
-export function DeleteButton({ onClick, ...props }: DeleteButtonProps) {
+export function DeleteButton({ onClick }: DeleteButtonProps) {
   return (
-    <Button
-      onClick={onClick}
-      className={styles.deleteButton}
-      label="削除🗑"
-      {...props}
-    />
+    <Button onClick={onClick} className={styles.deleteButton} label="削除🗑" />
   );
 }

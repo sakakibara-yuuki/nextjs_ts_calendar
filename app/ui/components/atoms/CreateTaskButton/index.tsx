@@ -1,7 +1,10 @@
 import { Button } from "../Button";
 import type { ButtonProps } from "../Button";
 
-interface CreateTaskButtonProps extends Omit<ButtonProps, "label"> {}
+interface CreateTaskButtonProps {
+  onClick: ButtonProps["onClick"];
+  className?: ButtonProps["className"];
+}
 
 export function CreateTaskButton({
   onClick,

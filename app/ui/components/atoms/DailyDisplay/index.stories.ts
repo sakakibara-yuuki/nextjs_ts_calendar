@@ -8,11 +8,7 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-  args: {
-    onClick: () => {
-      console.log("hello");
-    },
-  },
+  args: {},
 } satisfies Meta<typeof DailyDisplay>;
 
 export default meta;
@@ -20,8 +16,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: {
-    primary: true,
-    leftAndRight: "right",
-  },
+  args: {},
 };

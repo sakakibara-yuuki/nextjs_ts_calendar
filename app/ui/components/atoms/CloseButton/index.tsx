@@ -8,13 +8,12 @@ import { Button } from "../Button";
 import type { ButtonProps } from "../Button";
 import styles from "./styles.module.css";
 
-interface CloseButtonProps extends Omit<ButtonProps, "label"> {}
+interface CloseButtonProps {
+  onClick: ButtonProps["onClick"];
+  className?: ButtonProps["className"];
+}
 
-export function CloseButton({
-  onClick,
-  className,
-  ...props
-}: CloseButtonProps) {
+export function CloseButton({ onClick, className }: CloseButtonProps) {
   return (
     <Button
       onClick={onClick}
@@ -24,7 +23,6 @@ export function CloseButton({
           : `${className} ${styles.closeButton}`
       }
       label="閉じるx"
-      {...props}
     />
   );
 }

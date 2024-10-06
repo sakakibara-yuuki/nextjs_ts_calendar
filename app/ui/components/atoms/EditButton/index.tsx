@@ -8,15 +8,17 @@ import { Button } from "../Button";
 import type { ButtonProps } from "../Button";
 import styles from "./styles.module.css";
 
-interface EditButtonProps extends Omit<ButtonProps, "label"> {}
+interface EditButtonProps {
+  className?: string;
+  onClick: ButtonProps["onClick"];
+}
 
-export function EditButton({ className, onClick, ...props }: EditButtonProps) {
+export function EditButton({ className, onClick }: EditButtonProps) {
   return (
     <Button
       className={[`${className}`, styles.editButton]}
       onClick={onClick}
       label="編集✎"
-      {...props}
     />
   );
 }
