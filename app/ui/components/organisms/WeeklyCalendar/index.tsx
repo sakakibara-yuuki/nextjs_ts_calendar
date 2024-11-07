@@ -83,11 +83,6 @@ export function WeeklyCalendar({ date = new Date() }: WeeklyCalendarProps) {
     closeAllModal();
   }
 
-  console.log("========");
-  console.log(isAddModalOpen);
-  console.log(isEditModalOpen);
-  console.log("========");
-
   function deleteTask() {
     setTaskList(taskList.filter((task) => task.id !== selectedTask!.id));
     closeAllModal();
