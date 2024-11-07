@@ -17,50 +17,28 @@ export function Header({ className = [] }: HeaderProps) {
   const { viewMode, setViewMode } = useContext(ViewContext);
 
   const router = useRouter();
-  const [year, setYear] = useState(date.getFullYear());
-  const [month, setMonth] = useState(date.getMonth() + 1);
-  const [day, setDay] = useState(date.getDate());
+  const [routeDate, setRouteDate] = useState(date);
 
   function routeNext() {
-    let newYear: number;
-    let newMonth: number;
-    let newDay: number;
+    let nextDate: Date;
 
     if (viewMode === "month") {
-      const nextMonthDate = addMonths(date, 1);
-      newYear = nextMonthDate.getFullYear();
-      newMonth = nextMonthDate.getMonth() + 1;
-      newDay = nextMonthDate.getDate();
+      nextDate = addMonths(date, 1);
     } else {
-      const nextWeekDate = addWeeks(date, 1);
-      newYear = nextWeekDate.getFullYear();
-      newMonth = nextWeekDate.getMonth() + 1;
-      newDay = nextWeekDate.getDate();
+      nextDate = addWeeks(date, 1);
     }
-    setYear(newYear);
-    setMonth(newMonth);
-    setDay(newDay);
+    setRouteDate(nextDate);
   }
 
   function routePrevious() {
-    let newYear: number;
-    let newMonth: number;
-    let newDay: number;
+    let prevDate: Date;
 
     if (viewMode === "month") {
-      const prevMonthDate = subMonths(date, 1);
-      newYear = prevMonthDate.getFullYear();
-      newMonth = prevMonthDate.getMonth() + 1;
-      newDay = prevMonthDate.getDate();
+      prevDate = subMonths(date, 1);
     } else {
-      const prevWeekDate = subWeeks(date, 1);
-      newYear = prevWeekDate.getFullYear();
-      newMonth = prevWeekDate.getMonth() + 1;
-      newDay = prevWeekDate.getDate();
+      prevDate = subWeeks(date, 1);
     }
-    setYear(newYear);
-    setMonth(newMonth);
-    setDay(newDay);
+    setRouteDate(prevDate);
   }
 
   function switchViewMode(event: React.ChangeEvent<HTMLSelectElement>) {
@@ -69,8 +47,10 @@ export function Header({ className = [] }: HeaderProps) {
   }
 
   useEffect(() => {
-    router.push(`/calendar/view/${viewMode}/${year}/${month}/${day}`);
-  }, [viewMode, year, month, day]);
+    router.push(
+      `/calendar/view/${viewMode}/${routeDate.getFullYear()}/${routeDate.getMonth() + 1}/${routeDate.getDate()}`,
+    );
+  }, [viewMode, routeDate]);
 
   return (
     <header className={[...className, styles.headerContainer].join(" ")}>
