@@ -10,7 +10,7 @@ export default function ViewLayout({
   children: React.ReactNode;
 }>) {
   const [taskList, setTaskList] = useState<TaskType[]>([]);
-  const [viewMode, setViewMode] = useState("month");
+  const [viewMode, setViewMode] = useState<"month" | "week">("month");
 
   return (
     <TaskListContext.Provider value={{ taskList, setTaskList }}>

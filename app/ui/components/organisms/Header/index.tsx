@@ -43,7 +43,11 @@ export function Header({ className = [] }: HeaderProps) {
 
   function switchViewMode(event: React.ChangeEvent<HTMLSelectElement>) {
     event.preventDefault();
-    setViewMode(event.target.value);
+    if (event.target.value === "month") {
+      setViewMode("month");
+    } else {
+      setViewMode("week");
+    }
   }
 
   useEffect(() => {

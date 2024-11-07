@@ -8,7 +8,7 @@ import { createContext } from "react";
 
 type ViewContextType = {
   viewMode: "month" | "week";
-  setViewMode: React.Dispatch<React.SetStateAction<string>>;
+  setViewMode: React.Dispatch<React.SetStateAction<"month" | "week">>;
   date: Date;
 };
 
