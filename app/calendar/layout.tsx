@@ -19,7 +19,6 @@ export default function ViewLayout({
           viewMode,
           setViewMode,
           date: new Date(),
-          setDate: () => {},
         }}
       >
         {children}

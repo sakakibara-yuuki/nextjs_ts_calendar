@@ -34,7 +34,7 @@ export function MonthlyCalendar({
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [selectedTask, setSelectedTask] = useState<TaskType>();
+  const [selectedTask, setSelectedTask] = useState<TaskType | undefined>();
 
   const { taskList, setTaskList } = useContext(TaskListContext);
 

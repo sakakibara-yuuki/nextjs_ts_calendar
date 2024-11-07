@@ -10,11 +10,14 @@ import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 
 export default function Page() {
+  const router = useRouter();
   const { taskList, setTaskList } = useContext(TaskListContext);
   const params = useParams<{ taskId: string }>();
-
   const selectedTask = taskList.find((t) => t.id === params.taskId);
-  const router = useRouter();
+  if (!selectedTask) {
+    console.error("Task not found");
+    return null;
+  }
 
   function backClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -24,6 +27,11 @@ export default function Page() {
   function saveClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     const newtitle = event.currentTarget.form!.elements[1] as HTMLInputElement;
+
+    if (!newtitle.value) {
+      alert("Title is required");
+      return;
+    }
 
     setTaskList(
       taskList

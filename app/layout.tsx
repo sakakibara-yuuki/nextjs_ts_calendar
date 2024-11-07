@@ -7,10 +7,7 @@ import type { ParamsProps } from "types/params";
 export async function generateMetadata({ params }: ParamsProps) {
   const today = new Date();
   return {
-    title:
-      params.year & params.month
-        ? `${params.year}/${params.month}`
-        : `${today.getFullYear()}/${today.getMonth() + 1}`,
+    title: `${params.year ?? today.getFullYear()}/${params.month ?? today.getMonth() + 1}`,
     description: `This is the calendar about ${params.month} page`,
   };
 }

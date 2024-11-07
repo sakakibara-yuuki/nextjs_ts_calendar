@@ -1,26 +1,22 @@
 import { useParams } from "next/navigation";
 
-export function useParamsToDate() {
+export type Params = {
+  date: string[];
+};
+
+export function useParamsToDate(): Date {
   // custom hook
-  type Params = {
-    date: string[];
-  };
-
   const params = useParams<Params>();
-  const dates = params.date.map((item) => parseInt(item));
-  let date: Date;
+  const [year, month, day] = params.date.map((item) => parseInt(item));
 
-  if (dates[0] == undefined) {
-    date = new Date();
+  if (year == undefined) {
+    return new Date();
   }
-  if (dates[1] == undefined) {
-    date = new Date(dates[0]);
+  if (month == undefined) {
+    return new Date(year);
   }
-  if (dates[2] == undefined) {
-    date = new Date(dates[0], dates[1] - 1);
+  if (day == undefined) {
+    return new Date(year, month - 1);
   }
-
-  date = new Date(dates[0], dates[1] - 1, dates[2]);
-
-  return date;
+  return new Date(year, month - 1, day);
 }
