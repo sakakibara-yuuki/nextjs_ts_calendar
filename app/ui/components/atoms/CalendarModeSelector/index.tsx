@@ -1,7 +1,7 @@
 import styles from "./styles.module.css";
 
 export interface CalendarModeSelectorProps {
-  viewMode: string;
+  viewMode: "month" | "week";
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
