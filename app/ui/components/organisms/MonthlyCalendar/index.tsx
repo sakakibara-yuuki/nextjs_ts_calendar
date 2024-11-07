@@ -88,9 +88,14 @@ export function MonthlyCalendar({
   }
 
   function addTask(event: React.MouseEvent<HTMLButtonElement>) {
+    const title = event.currentTarget.form!.elements[1] as HTMLInputElement;
+    if (title.value === "") {
+      alert("Title is required");
+      return;
+    }
     const newTask = {
       id: crypto.randomUUID(),
-      title: (event.currentTarget.form!.elements[1] as HTMLInputElement).value,
+      title: title.value,
       date: selectedDate,
     };
     setTaskList([...taskList, newTask]);
