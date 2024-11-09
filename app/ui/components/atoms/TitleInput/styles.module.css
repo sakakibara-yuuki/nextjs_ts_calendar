@@ -1,0 +1,14 @@
+/*
+ * styles.module.css
+ * Copyright (C) 2024 sakakibara
+ *
+ * Distributed under terms of the MIT license.
+ */
+
+.titleInput {
+  background-color: var(--md-sys-color-secondary);
+  color: var(--md-sys-color-on-secondary);
+  border-radius: 5px;
+  border: none;
+  line-height: 1.5em;
+}

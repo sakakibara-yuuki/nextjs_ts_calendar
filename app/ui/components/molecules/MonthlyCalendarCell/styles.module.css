@@ -1,0 +1,26 @@
+/*
+ * styles.module.css
+ * Copyright (C) 2024 sakakibara
+ *
+ * Distributed under terms of the MIT license.
+ */
+
+.monthlyCalendarCell {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-items: center;
+  align-items: center;
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.monthlyCalendarCell p {
+  margin-top: 0.5em;
+  padding: 0.5em;
+  line-height: 0.5;
+}
+
+.today {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border-radius: 50%;
+}

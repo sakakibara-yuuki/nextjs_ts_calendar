@@ -1,0 +1,35 @@
+/*
+ * styles.module.css
+ * Copyright (C) 2024 sakakibara
+ *
+ * Distributed under terms of the MIT license.
+ */
+
+.eventAddModal {
+  position: absolute;
+  top: 50vh;
+  left: 35vw;
+  background-color: var(--md-sys-color-secondary-container);
+  padding: 1em;
+  border-radius: 10px;
+}
+
+.eventAddModal > form {
+  display: grid;
+  grid-template-columns: repeat(9, 2em);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0.5em;
+  row-gap: 0.5em;
+}
+
+.closeButton {
+  grid-column: span 2;
+}
+
+.titleInput {
+  grid-column: span 6;
+}
+
+.saveButton {
+  grid-column: span 1;
+}
